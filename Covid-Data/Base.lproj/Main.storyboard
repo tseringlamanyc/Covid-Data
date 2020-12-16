@@ -28,26 +28,25 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="covidCell" id="5hB-d4-OqV" customClass="countryCell" customModule="Covid_Data" customModuleProvider="target">
-                                        <rect key="frame" x="27" y="0.0" width="360" height="233"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="36.5" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gmo-9U-CIN">
-                                            <rect key="frame" x="0.0" y="0.0" width="360" height="233"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="36.5" height="36"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle.and.pencil.and.ellipsis.rtl" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="THb-0H-fNm">
-                                                    <rect key="frame" x="0.0" y="8" width="360" height="215.5"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scribble" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="i9p-2t-4AP">
+                                                    <rect key="frame" x="8" y="8" width="20.5" height="19"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="THb-0H-fNm" firstAttribute="leading" secondItem="gmo-9U-CIN" secondAttribute="leading" id="60d-uf-Nyp"/>
-                                                <constraint firstAttribute="bottom" secondItem="THb-0H-fNm" secondAttribute="bottom" constant="8" id="QBn-r1-SIJ"/>
-                                                <constraint firstItem="THb-0H-fNm" firstAttribute="top" secondItem="gmo-9U-CIN" secondAttribute="top" constant="8" id="k1D-f2-wc4"/>
-                                                <constraint firstAttribute="trailing" secondItem="THb-0H-fNm" secondAttribute="trailing" id="sfK-73-vRy"/>
+                                                <constraint firstItem="i9p-2t-4AP" firstAttribute="top" secondItem="gmo-9U-CIN" secondAttribute="top" constant="8" id="GFT-VH-dOj"/>
+                                                <constraint firstAttribute="bottom" secondItem="i9p-2t-4AP" secondAttribute="bottom" constant="8" id="Qnm-WP-Lq7"/>
+                                                <constraint firstAttribute="trailing" secondItem="i9p-2t-4AP" secondAttribute="trailing" constant="8" id="XsB-fZ-iRu"/>
+                                                <constraint firstItem="i9p-2t-4AP" firstAttribute="leading" secondItem="gmo-9U-CIN" secondAttribute="leading" constant="8" id="dl9-PV-4yu"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="360" height="233"/>
                                         <connections>
-                                            <outlet property="imageView" destination="THb-0H-fNm" id="FGj-lY-lxg"/>
+                                            <outlet property="imageView" destination="i9p-2t-4AP" id="lPH-Jk-PjY"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -68,11 +67,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-586" y="72"/>
+            <point key="canvasLocation" x="-586.95652173913049" y="71.651785714285708"/>
         </scene>
     </scenes>
     <resources>
-        <image name="rectangle.and.pencil.and.ellipsis.rtl" catalog="system" width="128" height="92"/>
+        <image name="scribble" catalog="system" width="128" height="118"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

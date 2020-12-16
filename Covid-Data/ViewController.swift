@@ -53,7 +53,6 @@ class ViewController: UIViewController {
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
         collectionView.backgroundColor = .systemBackground
-        collectionView.register(countryCell.self, forCellWithReuseIdentifier: "countryCell")
         collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
     }
     
@@ -73,6 +72,7 @@ class ViewController: UIViewController {
     
     private func updateSnapshot(contient: [AllContientData]) {
         var snapshot = dataSource.snapshot()
+        snapshot.appendItems(contient, toSection: .third)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
@@ -96,8 +96,8 @@ class ViewController: UIViewController {
             let innerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
             let innerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: innerGroupSize, subitem: item, count: 3)
             
-            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.95), heightDimension: .fractionalHeight(1.0))
-            let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innerGroup])
+            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.25))
+            let nestedGroup = NSCollectionLayoutGroup.vertical(layoutSize: nestedGroupSize, subitems: [innerGroup])
             
             // section
             let section = NSCollectionLayoutSection(group: nestedGroup)
@@ -117,9 +117,33 @@ class ViewController: UIViewController {
     private func configureDataSource() {
         dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "countryCell", for: indexPath) as? countryCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "covidCell", for: indexPath) as? countryCell else {
                 fatalError()
             }
+            
+            let endpoint = "https://assets.thebasetrip.com/api/v2/countries/flags/\(item.countries.first?.lowercased() ?? "").png"
+            
+           guard let url = URL(string: endpoint) else {
+                return nil
+            }
+            
+            let dataTask = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                if let error = error {
+                    print("error in photo retrieve \(error.localizedDescription)")
+                }
+                
+                if let data = data {
+                    DispatchQueue.main.async {
+                    let image = UIImage(data: data)
+                        cell.imageView.image = image
+                    }
+                }
+            }
+            dataTask.resume()
+            
+            // https://assets.thebasetrip.com/api/v2/countries/flags/france.png
+            
+            cell.backgroundColor = .systemGray
             return cell
         })
         
