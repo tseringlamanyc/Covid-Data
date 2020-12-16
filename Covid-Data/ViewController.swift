@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         case fourth
         case fifth
         case sixth
-
+        
         var sectionTitle: String {
             switch self {
             case .first:
@@ -41,16 +41,39 @@ class ViewController: UIViewController {
     typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, AllContientData>
     private var dataSource: DataSource!
     
+    let apiClinet = APIClient()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
         configureDataSource()
+        loadData()
     }
     
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
         collectionView.backgroundColor = .systemBackground
+        collectionView.register(countryCell.self, forCellWithReuseIdentifier: "countryCell")
         collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
+    }
+    
+    private func loadData() {
+        apiClinet.fetchAllContinents { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let allData):
+                DispatchQueue.main.async {
+                    self?.updateSnapshot(contient: allData)
+                    dump(allData)
+                }
+            }
+        }
+    }
+    
+    private func updateSnapshot(contient: [AllContientData]) {
+        var snapshot = dataSource.snapshot()
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -89,8 +112,8 @@ class ViewController: UIViewController {
         
         return layout
     }
-
-
+    
+    
     private func configureDataSource() {
         dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
             
