@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ViewController: UIViewController {
     
@@ -64,7 +65,7 @@ class ViewController: UIViewController {
             case .success(let allData):
                 DispatchQueue.main.async {
                     self?.updateSnapshot(contients: allData)
-                    //dump(allData)
+                    dump(allData)
                 }
             }
         }
@@ -75,12 +76,10 @@ class ViewController: UIViewController {
         
         snapshot.appendSections([.first, .second, .third, .fourth, .fifth, .sixth])
         
-       // for (index, covidData) in contients.enumerated() {
-       //    snapshot.appendItems(covidData.countries, toSection: SectionKind.allCases[index])
-       // }
-        dump(contients.first!.countries)
-        snapshot.appendItems([""], toSection: .first)
-        
+        for (index, covidData) in contients.enumerated() {
+           snapshot.appendItems(covidData.countries, toSection: SectionKind.allCases[index])
+        }
+
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
@@ -105,7 +104,7 @@ class ViewController: UIViewController {
             let innerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: innerGroupSize, subitem: item, count: 3)
             
             let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.25))
-            let nestedGroup = NSCollectionLayoutGroup.vertical(layoutSize: nestedGroupSize, subitems: [innerGroup])
+            let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innerGroup])
             
             // section
             let section = NSCollectionLayoutSection(group: nestedGroup)
@@ -129,29 +128,11 @@ class ViewController: UIViewController {
                 fatalError()
             }
             
-            let endpoint = "https://assets.thebasetrip.com/api/v2/countries/flags/\(item.lowercased()).png"
-            
-           guard let url = URL(string: endpoint) else {
-                return nil
-            }
-            
-            let dataTask = URLSession.shared.dataTask(with: url) { (data, _, error) in
-                if let error = error {
-                    print("error in photo retrieve \(error.localizedDescription)")
-                }
-                
-                if let data = data {
-                    DispatchQueue.main.async {
-                    let image = UIImage(data: data)
-                        cell.imageView.image = image
-                    }
-                }
-            }
-            dataTask.resume()
-            
-            // https://assets.thebasetrip.com/api/v2/countries/flags/france.png
-            
             cell.backgroundColor = .systemGray
+            
+            let url = URL(string: "https://assets.thebasetrip.com/api/v2/countries/flags/\(item.lowercased().trimmingCharacters(in: .whitespaces)).png")
+            
+            cell.imageView.kf.setImage(with: url)
             return cell
         })
         
@@ -166,10 +147,6 @@ class ViewController: UIViewController {
             headerView.textLabel.font = UIFont.preferredFont(forTextStyle: .headline)
             return headerView
         }
-        
-//        var snapshot = dataSource.snapshot()
-//      //  snapshot.appendSections([.first, .second, .third, .fourth, .fifth, .sixth])
-//        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
 }
