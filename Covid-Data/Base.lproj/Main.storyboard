@@ -18,34 +18,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vlE-97-Bxz">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gbm-qq-S36">
-                                    <size key="itemSize" width="360" height="233"/>
+                                    <size key="itemSize" width="349" height="256"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="covidCell" id="5hB-d4-OqV" customClass="countryCell" customModule="Covid_Data" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="36.5" height="36"/>
+                                        <rect key="frame" x="32.5" y="0.0" width="349" height="256"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gmo-9U-CIN">
-                                            <rect key="frame" x="0.0" y="0.0" width="36.5" height="36"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="256"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scribble" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="i9p-2t-4AP">
-                                                    <rect key="frame" x="8" y="8" width="20.5" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="349" height="224.5"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S53-tQ-RMx">
+                                                    <rect key="frame" x="8" y="233.5" width="333" height="14.5"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="i9p-2t-4AP" firstAttribute="top" secondItem="gmo-9U-CIN" secondAttribute="top" constant="8" id="GFT-VH-dOj"/>
-                                                <constraint firstAttribute="bottom" secondItem="i9p-2t-4AP" secondAttribute="bottom" constant="8" id="Qnm-WP-Lq7"/>
-                                                <constraint firstAttribute="trailing" secondItem="i9p-2t-4AP" secondAttribute="trailing" constant="8" id="XsB-fZ-iRu"/>
-                                                <constraint firstItem="i9p-2t-4AP" firstAttribute="leading" secondItem="gmo-9U-CIN" secondAttribute="leading" constant="8" id="dl9-PV-4yu"/>
+                                                <constraint firstAttribute="bottom" secondItem="S53-tQ-RMx" secondAttribute="bottom" constant="8" id="0ao-4W-fsF"/>
+                                                <constraint firstItem="i9p-2t-4AP" firstAttribute="top" secondItem="gmo-9U-CIN" secondAttribute="top" id="Gf0-5p-3Mo"/>
+                                                <constraint firstAttribute="trailing" secondItem="S53-tQ-RMx" secondAttribute="trailing" constant="8" id="SrM-QK-YTt"/>
+                                                <constraint firstItem="S53-tQ-RMx" firstAttribute="leading" secondItem="gmo-9U-CIN" secondAttribute="leading" constant="8" id="VXl-MF-Pzy"/>
+                                                <constraint firstItem="S53-tQ-RMx" firstAttribute="top" secondItem="i9p-2t-4AP" secondAttribute="bottom" constant="8" symbolic="YES" id="ZLU-8c-9ag"/>
+                                                <constraint firstItem="i9p-2t-4AP" firstAttribute="leading" secondItem="gmo-9U-CIN" secondAttribute="leading" id="gMU-b1-LoI"/>
+                                                <constraint firstAttribute="trailing" secondItem="i9p-2t-4AP" secondAttribute="trailing" id="rsH-JS-PNc"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="349" height="256"/>
                                         <connections>
+                                            <outlet property="countryName" destination="S53-tQ-RMx" id="JJB-PK-CPh"/>
                                             <outlet property="imageView" destination="i9p-2t-4AP" id="lPH-Jk-PjY"/>
                                         </connections>
                                     </collectionViewCell>
@@ -55,10 +66,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vlE-97-Bxz" secondAttribute="trailing" id="141-sM-UdB"/>
-                            <constraint firstItem="vlE-97-Bxz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CGC-yB-Rg6"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vlE-97-Bxz" secondAttribute="bottom" id="r5c-Pr-GlB"/>
-                            <constraint firstItem="vlE-97-Bxz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vYL-Mh-VGg"/>
+                            <constraint firstItem="vlE-97-Bxz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="BIg-BJ-lU3"/>
+                            <constraint firstItem="vlE-97-Bxz" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Qn2-z9-ZuQ"/>
+                            <constraint firstItem="vlE-97-Bxz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="TaY-xA-Y6R"/>
+                            <constraint firstItem="vlE-97-Bxz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="spr-ps-mrW"/>
                         </constraints>
                     </view>
                     <connections>

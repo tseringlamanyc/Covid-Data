@@ -14,7 +14,8 @@ class HeaderView: UICollectionReusableView {
       public lazy var textLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.font = UIFont.preferredFont(forTextStyle: .title1)
+        label.textColor = UIColor.systemRed
         return label
       }()
       

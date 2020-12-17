@@ -53,7 +53,7 @@ class ViewController: UIViewController {
     
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .systemGray6
         collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
     }
     
@@ -65,7 +65,6 @@ class ViewController: UIViewController {
             case .success(let allData):
                 DispatchQueue.main.async {
                     self?.updateSnapshot(contients: allData)
-                    dump(allData)
                 }
             }
         }
@@ -103,11 +102,12 @@ class ViewController: UIViewController {
             let innerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
             let innerGroup = NSCollectionLayoutGroup.horizontal(layoutSize: innerGroupSize, subitem: item, count: 3)
             
-            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.25))
+            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.45))
             let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innerGroup])
             
             // section
             let section = NSCollectionLayoutSection(group: nestedGroup)
+            section.orthogonalScrollingBehavior = .continuous
             
             // section header
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
@@ -128,11 +128,10 @@ class ViewController: UIViewController {
                 fatalError()
             }
             
-            cell.backgroundColor = .systemGray
-            
             let url = URL(string: "https://assets.thebasetrip.com/api/v2/countries/flags/\(item.lowercased().trimmingCharacters(in: .whitespaces)).png")
             
             cell.imageView.kf.setImage(with: url)
+            cell.countryName.text = item
             return cell
         })
         
