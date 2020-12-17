@@ -38,7 +38,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, AllContientData>
+    typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, String>
     private var dataSource: DataSource!
     
     let apiClinet = APIClient()
@@ -63,16 +63,24 @@ class ViewController: UIViewController {
                 print(error)
             case .success(let allData):
                 DispatchQueue.main.async {
-                    self?.updateSnapshot(contient: allData)
-                    dump(allData)
+                    self?.updateSnapshot(contients: allData)
+                    //dump(allData)
                 }
             }
         }
     }
     
-    private func updateSnapshot(contient: [AllContientData]) {
+    private func updateSnapshot(contients: [AllContientData]) {
         var snapshot = dataSource.snapshot()
-        snapshot.appendItems(contient, toSection: .third)
+        
+        snapshot.appendSections([.first, .second, .third, .fourth, .fifth, .sixth])
+        
+       // for (index, covidData) in contients.enumerated() {
+       //    snapshot.appendItems(covidData.countries, toSection: SectionKind.allCases[index])
+       // }
+        dump(contients.first!.countries)
+        snapshot.appendItems([""], toSection: .first)
+        
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
@@ -121,7 +129,7 @@ class ViewController: UIViewController {
                 fatalError()
             }
             
-            let endpoint = "https://assets.thebasetrip.com/api/v2/countries/flags/\(item.countries.first?.lowercased() ?? "").png"
+            let endpoint = "https://assets.thebasetrip.com/api/v2/countries/flags/\(item.lowercased()).png"
             
            guard let url = URL(string: endpoint) else {
                 return nil
@@ -148,20 +156,20 @@ class ViewController: UIViewController {
         })
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
-            
+
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView, let sectionKind = SectionKind(rawValue: indexPath.section) else {
                 fatalError()
             }
-            
+
             headerView.textLabel.text = sectionKind.sectionTitle
             headerView.textLabel.textAlignment = .left
             headerView.textLabel.font = UIFont.preferredFont(forTextStyle: .headline)
             return headerView
         }
         
-        var snapshot = dataSource.snapshot()
-        snapshot.appendSections([.first, .second, .third, .fourth, .fifth, .sixth])
-        dataSource.apply(snapshot, animatingDifferences: false)
+//        var snapshot = dataSource.snapshot()
+//      //  snapshot.appendSections([.first, .second, .third, .fourth, .fifth, .sixth])
+//        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
 }
