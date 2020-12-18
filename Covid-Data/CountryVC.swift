@@ -10,10 +10,9 @@ import UIKit
 class CountryVC: UIViewController {
     
     public var country: String?
-
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(country?.description)
-        navigationController?.title = country
+        print(country ?? "no country")
     }
 }

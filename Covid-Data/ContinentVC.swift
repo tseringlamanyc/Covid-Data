@@ -53,6 +53,7 @@ class ContinentVC: UIViewController {
     
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
+        collectionView.delegate = self
         collectionView.backgroundColor = .systemGray6
         collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
     }
@@ -133,6 +134,7 @@ class ContinentVC: UIViewController {
             
             cell.imageView.kf.setImage(with: url)
             cell.countryName.text = country
+            
             return cell
         })
         
@@ -149,5 +151,22 @@ class ContinentVC: UIViewController {
         }
     }
     
+}
+
+extension ContinentVC: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let country = dataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        print(indexPath)
+        print("The name of the country is \(country)")
+        
+        let countryVC = CountryVC()
+        countryVC.country = country
+        
+    }
 }
 
