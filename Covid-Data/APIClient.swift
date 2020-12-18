@@ -50,4 +50,40 @@ class APIClient {
         }
         dataTask.resume()
     }
+    
+    public func getCaseData(country: String, completion: @escaping(Result<CasesData, ApiError>) -> ()) {
+        
+        let endpoint = "https://disease.sh/v3/covid-19/historical/\(country)?lastdays=30"
+        
+        guard let url = URL(string: endpoint) else {
+            completion(.failure(.badURL(endpoint)))
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            if let error = error {
+                completion(.failure(.networkError(error)))
+            }
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                print("bad status code")
+                return
+            }
+            
+            if let data = data {
+                
+                do {
+                    let allData = try JSONDecoder().decode(CasesData.self, from: data)
+                    completion(.success(allData))
+                } catch {
+                    completion(.failure(.decodingError(error)))
+                }
+            }
+        }
+        dataTask.resume()
+    }
 }

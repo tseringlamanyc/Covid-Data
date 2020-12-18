@@ -19,3 +19,15 @@ struct AllContientData: Decodable, Hashable {
     let activePerOneMillion, recoveredPerOneMillion, criticalPerOneMillion: Double
     let countries: [String]
 }
+
+struct CasesData: Decodable {
+    let country: String
+    let timeline: Timeline
+}
+
+struct Timeline: Decodable {
+    let cases: [String: Int]
+    let deaths: [String: Int]
+    let recovered: [String: Int]
+}
+

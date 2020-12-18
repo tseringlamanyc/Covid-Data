@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class ViewController: UIViewController {
+class ContinentVC: UIViewController {
     
     enum SectionKind: Int, CaseIterable {
         case first
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
             }
         }
     }
-    
+        
     private func updateSnapshot(contients: [AllContientData]) {
         var snapshot = dataSource.snapshot()
         
@@ -81,6 +81,7 @@ class ViewController: UIViewController {
 
         dataSource.apply(snapshot, animatingDifferences: false)
     }
+    
     
     private func createLayout() -> UICollectionViewLayout {
         // item -> group -> section -> layout
@@ -122,16 +123,16 @@ class ViewController: UIViewController {
     
     
     private func configureDataSource() {
-        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, item) -> UICollectionViewCell? in
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, country) -> UICollectionViewCell? in
             
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "covidCell", for: indexPath) as? countryCell else {
                 fatalError()
             }
             
-            let url = URL(string: "https://assets.thebasetrip.com/api/v2/countries/flags/\(item.lowercased().trimmingCharacters(in: .whitespaces)).png")
+            let url = URL(string: "https://assets.thebasetrip.com/api/v2/countries/flags/\(country.lowercased().trimmingCharacters(in: .whitespaces)).png")
             
             cell.imageView.kf.setImage(with: url)
-            cell.countryName.text = item
+            cell.countryName.text = country
             return cell
         })
         
