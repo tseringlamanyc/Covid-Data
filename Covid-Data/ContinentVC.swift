@@ -132,6 +132,8 @@ class ContinentVC: UIViewController {
             
             let url = URL(string: "https://assets.thebasetrip.com/api/v2/countries/flags/\(country.lowercased().trimmingCharacters(in: .whitespaces)).png")
             
+            cell.imageView.clipsToBounds = true
+            cell.imageView.layer.masksToBounds = true
             cell.imageView.kf.setImage(with: url)
             cell.countryName.text = country
             
