@@ -70,7 +70,7 @@ class ContinentVC: UIViewController {
             }
         }
     }
-        
+    
     private func updateSnapshot(contients: [AllContientData]) {
         var snapshot = dataSource.snapshot()
         
@@ -164,8 +164,13 @@ extension ContinentVC: UICollectionViewDelegate {
         print(indexPath)
         print("The name of the country is \(country)")
         
-        let countryVC = CountryVC()
-        countryVC.country = country
+        guard let countryVC = storyboard?.instantiateViewController(identifier: "CountryVC", creator: { (coder)  in
+            return CountryVC(coder: coder, country: country)
+        }) else {
+            fatalError("couldnt segue to countryVC")
+        }
+
+        navigationController?.pushViewController(countryVC, animated: true)
         
     }
 }

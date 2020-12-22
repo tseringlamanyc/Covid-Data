@@ -58,7 +58,6 @@
                                         <connections>
                                             <outlet property="countryName" destination="S53-tQ-RMx" id="JJB-PK-CPh"/>
                                             <outlet property="imageView" destination="i9p-2t-4AP" id="lPH-Jk-PjY"/>
-                                            <segue destination="Rfr-Wk-geS" kind="show" id="7bc-Fb-pa9"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -85,18 +84,33 @@
         <!--CountryVC-->
         <scene sceneID="rTw-SC-Toj">
             <objects>
-                <viewController id="Rfr-Wk-geS" customClass="CountryVC" customModule="Covid_Data" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CountryVC" id="Rfr-Wk-geS" customClass="CountryVC" customModule="Covid_Data" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pEC-wI-zEg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9qE-ih-dMl" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="20" y="52" width="374" height="354"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="hwp-ql-eVx"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="9qE-ih-dMl" firstAttribute="leading" secondItem="hwp-ql-eVx" secondAttribute="leading" constant="20" id="3cu-vI-WsB"/>
+                            <constraint firstItem="9qE-ih-dMl" firstAttribute="top" secondItem="hwp-ql-eVx" secondAttribute="top" constant="8" id="Iex-Ji-cIv"/>
+                            <constraint firstItem="hwp-ql-eVx" firstAttribute="trailing" secondItem="9qE-ih-dMl" secondAttribute="trailing" constant="20" id="eqi-F3-BdJ"/>
+                            <constraint firstItem="9qE-ih-dMl" firstAttribute="height" secondItem="pEC-wI-zEg" secondAttribute="height" multiplier="0.395089" id="zZl-Ij-ANw"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cHq-cw-cqw"/>
+                    <connections>
+                        <outlet property="lineGraph" destination="9qE-ih-dMl" id="VCu-dw-Vyu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i72-40-ChC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1168" y="72"/>
+            <point key="canvasLocation" x="1166.6666666666667" y="71.651785714285708"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="q5h-TI-hXS">

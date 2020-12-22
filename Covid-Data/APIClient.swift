@@ -53,7 +53,9 @@ class APIClient {
     
     public func getCaseData(country: String, completion: @escaping(Result<CasesData, ApiError>) -> ()) {
         
-        let endpoint = "https://disease.sh/v3/covid-19/historical/\(country)?lastdays=30"
+        let noSpaceCountry = country.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        let endpoint = "https://disease.sh/v3/covid-19/historical/\(noSpaceCountry)?lastdays=30"
         
         guard let url = URL(string: endpoint) else {
             completion(.failure(.badURL(endpoint)))
