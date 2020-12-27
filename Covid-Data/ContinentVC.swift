@@ -31,7 +31,7 @@ class ContinentVC: UIViewController {
             case .fifth:
                 return "Africa"
             case .sixth:
-                return "Australia"
+                return "Australia/Oceania"
             }
         }
         
@@ -44,11 +44,14 @@ class ContinentVC: UIViewController {
     
     let apiClinet = APIClient()
     
+    var newCountryData = [AllCountries]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
         configureDataSource()
         loadData()
+        newData()
     }
     
     private func configureCollectionView() {
@@ -71,15 +74,28 @@ class ContinentVC: UIViewController {
         }
     }
     
+    private func newData() {
+        apiClinet.newData { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let allData):
+                DispatchQueue.main.async {
+                    self?.newCountryData = allData
+                }
+            }
+        }
+    }
+    
     private func updateSnapshot(contients: [AllContientData]) {
         var snapshot = dataSource.snapshot()
         
         snapshot.appendSections([.first, .second, .third, .fourth, .fifth, .sixth])
         
         for (index, covidData) in contients.enumerated() {
-           snapshot.appendItems(covidData.countries, toSection: SectionKind.allCases[index])
+            snapshot.appendItems(covidData.countries, toSection: SectionKind.allCases[index])
         }
-
+        
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
@@ -124,16 +140,22 @@ class ContinentVC: UIViewController {
     
     
     private func configureDataSource() {
-        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, country) -> UICollectionViewCell? in
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { [self] (collectionView, indexPath, country) -> UICollectionViewCell? in
             
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "covidCell", for: indexPath) as? countryCell else {
                 fatalError()
             }
             
-            let url = URL(string: "https://assets.thebasetrip.com/api/v2/countries/flags/\(country.lowercased().trimmingCharacters(in: .whitespaces)).png")
+            var countryURL = ""
             
-            cell.imageView.clipsToBounds = true
-            cell.imageView.layer.masksToBounds = true
+            for data in newCountryData {
+                if country == data.country {
+                    countryURL += data.countryInfo.flag
+                }
+            }
+            
+            let url = URL(string: countryURL)
+        
             cell.imageView.kf.setImage(with: url)
             cell.countryName.text = country
             
@@ -141,11 +163,11 @@ class ContinentVC: UIViewController {
         })
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
-
+            
             guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.reuseIdentifier, for: indexPath) as? HeaderView, let sectionKind = SectionKind(rawValue: indexPath.section) else {
                 fatalError()
             }
-
+            
             headerView.textLabel.text = sectionKind.sectionTitle
             headerView.textLabel.textAlignment = .left
             headerView.textLabel.font = UIFont.preferredFont(forTextStyle: .headline)
@@ -171,7 +193,7 @@ extension ContinentVC: UICollectionViewDelegate {
         }) else {
             fatalError("couldnt segue to countryVC")
         }
-
+        
         navigationController?.pushViewController(countryVC, animated: true)
         
     }

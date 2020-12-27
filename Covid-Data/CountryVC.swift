@@ -14,8 +14,6 @@ class CountryVC: UIViewController {
     
     let apiClinet = APIClient()
     
-    var chartData = [ChartDataEntry]()
-    
     @IBOutlet weak var lineGraph: LineChartView!
     
     init?(coder: NSCoder, country: String) {
@@ -29,49 +27,53 @@ class CountryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBlue
-        fetchCountryData(country: country)
+        navigationItem.title = country.uppercased()
+        view.backgroundColor = .systemBackground
+        fetchAllCountryData(country: country)
         configureGraph()
-        print(country.replacingOccurrences(of: " ", with: ""))
     }
     
     func configureGraph() {
         
-        lineGraph.backgroundColor = .systemBlue
+        lineGraph.backgroundColor = .systemBackground
         lineGraph.rightAxis.enabled = false
         
         let yAxis = lineGraph.leftAxis
         yAxis.labelFont = .boldSystemFont(ofSize: 12)
         yAxis.setLabelCount(8, force: false)
-        yAxis.labelTextColor = .systemYellow
-        yAxis.axisLineColor = .systemYellow
+        yAxis.labelTextColor = .black
+        yAxis.axisLineColor = .black
         
         let xAxis = lineGraph.xAxis
         xAxis.labelPosition = .bottom
         xAxis.labelFont = .boldSystemFont(ofSize: 12)
         xAxis.setLabelCount(8, force: false)
-        xAxis.labelTextColor = .systemYellow
-        xAxis.axisLineColor = .systemYellow
+        xAxis.labelTextColor = .black
+        xAxis.axisLineColor = .black
         
         lineGraph.animate(xAxisDuration: 2.5)
     }
     
-    func fetchCountryData(country: String) {
-        apiClinet.getCaseData(country: country) { [weak self] (result) in
+    func fetchAllCountryData(country: String) {
+        apiClinet.getAllCaseData { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print("this is the \(error)")
             case .success(let data):
                 DispatchQueue.main.async { [weak self] in
-                    print(data.timeline.cases)
                     
-                    let caseArray = data.timeline.cases.sorted { $0.key.getDate() < $1.key.getDate() }
+                    var allCases = [String: Int]()
                     
-//                    for (_, value) in data.timeline.cases {
-//                        caseArray.append(value)
-//                    }
+                    for (countries) in data {
+                        if country == countries.country || (countries.province != nil) {
+                            allCases = countries.timeline.cases
+                        }
+                    }
                     
-                    let entries = (1...data.timeline.cases.count).map { (x) -> ChartDataEntry in
+                    
+                    let caseArray = allCases.sorted { $0.key.getDate() < $1.key.getDate() }
+                    
+                    let entries = (1...30).map { (x) -> ChartDataEntry in
                         return ChartDataEntry(x: Double(x) , y: Double(caseArray[x - 1].value))
                     }
                     
@@ -79,58 +81,25 @@ class CountryVC: UIViewController {
                     set.drawCirclesEnabled = false
                     set.mode = .cubicBezier
                     
-                    set.lineWidth = 3
+                    set.lineWidth = 2.5
                     
                     set.mode = .cubicBezier
                     set.drawValuesEnabled = true
                     set.valueFont = .systemFont(ofSize: 10)
                     
-                    set.setColor(.white)
-                    set.fill = Fill(color: .white)
+                    set.setColor(.systemYellow)
+                    set.fill = Fill(color: .systemRed)
                     set.fillAlpha = 0.8
                     set.drawFilledEnabled = true
                     
                     set.axisDependency = .left
                     
-                    LineChartData(dataSet: set).setDrawValues(false)
                     let data = LineChartData(dataSet: set)
                     data.setDrawValues(false)
                     self?.lineGraph.data = data
-                    
                 }
             }
         }
-    }
-    
-    func generateLineData() -> LineChartData {
-        let entries = (2...10).map { (x) -> ChartDataEntry in
-            return ChartDataEntry(x: Double(x) , y: Double(arc4random_uniform(15) + 5))
-        }
-        
-        let set = LineChartDataSet(entries: entries, label: "Cases")
-        
-        set.drawCirclesEnabled = false
-        set.mode = .cubicBezier
-        
-        set.lineWidth = 2.5
-        
-        set.circleRadius = 5
-        set.circleHoleRadius = 2.5
-        
-        set.mode = .cubicBezier
-        set.drawValuesEnabled = true
-        set.valueFont = .systemFont(ofSize: 10)
-        
-        set.setColor(.white)
-        set.fill = Fill(color: .white)
-        set.fillAlpha = 0.8
-        set.drawFilledEnabled = true 
-        
-        set.axisDependency = .left
-        
-        LineChartData(dataSet: set).setDrawValues(false)
-        
-        return LineChartData(dataSet: set)
     }
 }
 
@@ -148,14 +117,4 @@ extension String {
         let date = dateFormatter.date(from: self)
         return date ?? Date()
     }
-    
-    //    let date2 = convert(string: "11/12/20")
-    //    let date1 = convert(string: "11/30/20")
-    //    if date1 < date2 {
-    //     print(“older date”)
-    //    }
-    //
-    //    let sortedCases = casesDict.sorted { case1, case2 in
-    //     return convert(string: case1.key) < convert(string: case2.key)
-    //    }
 }

@@ -31,3 +31,23 @@ struct Timeline: Decodable {
     let recovered: [String: Int]
 }
 
+
+struct AllCountries: Decodable, Hashable {
+    let country: String
+    let countryInfo: CountryInfo
+    let continent: String
+}
+
+struct AllCaseData: Decodable, Hashable {
+    let country: String
+    let province: String?
+    let timeline: Timeline2
+}
+
+struct Timeline2: Decodable, Hashable {
+    let cases, deaths, recovered: [String: Int]
+}
+
+struct CountryInfo: Decodable, Hashable {
+    let flag: String
+}
