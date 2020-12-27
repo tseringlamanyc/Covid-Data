@@ -194,8 +194,8 @@ extension ContinentVC: UICollectionViewDelegate {
             fatalError("couldnt segue to countryVC")
         }
         
-        navigationController?.pushViewController(countryVC, animated: true)
-        
+       navigationController?.pushViewController(countryVC, animated: true)
+       
     }
 }
 

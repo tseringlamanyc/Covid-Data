@@ -16,8 +16,6 @@ class CountryVC: UIViewController {
     
     @IBOutlet weak var lineGraph: LineChartView!
     
-    var allCases = [String: Int]()
-    
     init?(coder: NSCoder, country: String) {
         self.country = country
         super.init(coder: coder)
@@ -31,6 +29,7 @@ class CountryVC: UIViewController {
         super.viewDidLoad()
         navigationItem.title = country.uppercased()
         view.backgroundColor = .systemBackground
+        navigationController?.tabBarController?.hidesBottomBarWhenPushed = true 
         fetchAllCountryData(country: country)
         configureGraph()
     }
@@ -64,16 +63,19 @@ class CountryVC: UIViewController {
             case .success(let data):
                 DispatchQueue.main.async { [weak self] in
                     
+                    var allCases = [String: Int]()
+                    
                     for (countries) in data {
                         if country == countries.country || country.lowercased() == countries.province?.lowercased() {
-                            self?.allCases = countries.timeline.cases
+                            allCases = countries.timeline.cases
                         }
                     }
                     
-                    let caseArray = self?.allCases.sorted { $0.key.getDate() < $1.key.getDate() }
+                    
+                    let caseArray = allCases.sorted { $0.key.getDate() < $1.key.getDate() }
                     
                     let entries = (1...30).map { (x) -> ChartDataEntry in
-                        return ChartDataEntry(x: Double(x) , y: Double(caseArray![x - 1].value))
+                        return ChartDataEntry(x: Double(x) , y: Double(caseArray[x - 1].value))
                     }
                     
                     let set = LineChartDataSet(entries: entries, label: "Cases")
