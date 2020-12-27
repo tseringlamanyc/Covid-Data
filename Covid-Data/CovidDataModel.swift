@@ -8,15 +8,7 @@
 import Foundation
 
 struct AllContientData: Decodable, Hashable {
-    let updated, cases, todayCases, deaths: Int
-    let todayDeaths, recovered, todayRecovered, active: Int
-    let critical: Int
-    let casesPerOneMillion, deathsPerOneMillion: Double
-    let tests: Int
-    let testsPerOneMillion: Double
-    let population: Int
     let continent: String
-    let activePerOneMillion, recoveredPerOneMillion, criticalPerOneMillion: Double
     let countries: [String]
 }
 
@@ -27,8 +19,6 @@ struct CasesData: Decodable {
 
 struct Timeline: Decodable {
     let cases: [String: Int]
-    let deaths: [String: Int]
-    let recovered: [String: Int]
 }
 
 
@@ -45,7 +35,7 @@ struct AllCaseData: Decodable, Hashable {
 }
 
 struct Timeline2: Decodable, Hashable {
-    let cases, deaths, recovered: [String: Int]
+    let cases: [String: Int]
 }
 
 struct CountryInfo: Decodable, Hashable {
