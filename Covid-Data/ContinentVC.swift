@@ -75,7 +75,7 @@ class ContinentVC: UIViewController {
     }
     
     private func newData() {
-        apiClinet.newData { [weak self] (result) in
+        apiClinet.dataForFlag { [weak self] (result) in
             switch result {
             case .failure(let error):
                 print(error)

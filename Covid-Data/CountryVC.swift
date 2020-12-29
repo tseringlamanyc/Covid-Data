@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 import Charts
 
 class CountryVC: UIViewController {
@@ -15,6 +16,12 @@ class CountryVC: UIViewController {
     let apiClinet = APIClient()
     
     @IBOutlet weak var lineGraph: LineChartView!
+    @IBOutlet weak var population: UILabel!
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var totalCase: UILabel!
+    @IBOutlet weak var todaysCase: UILabel!
+    @IBOutlet weak var totalDeath: UILabel!
+    @IBOutlet weak var todaysDeath: UILabel!
     
     init?(coder: NSCoder, country: String) {
         self.country = country
@@ -101,12 +108,6 @@ class CountryVC: UIViewController {
                 }
             }
         }
-    }
-}
-
-extension CountryVC: ChartViewDelegate {
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print(entry)
     }
 }
 

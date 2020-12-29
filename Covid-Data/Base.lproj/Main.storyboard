@@ -91,21 +91,79 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9qE-ih-dMl" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="20" y="52" width="374" height="313.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Population" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xT-d6-Qgo">
+                                <rect key="frame" x="20" y="385.5" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Case" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsX-2X-0y9">
+                                <rect key="frame" x="20" y="421.5" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Todays case" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Nl-yO-Zgk">
+                                <rect key="frame" x="20" y="457.5" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Todays death" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSK-jD-LBE">
+                                <rect key="frame" x="20" y="529.5" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="dq8-mO-7p9">
+                                <rect key="frame" x="20" y="558.5" width="374" height="304"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total death " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Gd-XJ-HjN">
+                                <rect key="frame" x="20" y="493.5" width="374" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hwp-ql-eVx"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="hwp-ql-eVx" firstAttribute="trailing" secondItem="6Gd-XJ-HjN" secondAttribute="trailing" constant="20" id="1TQ-jR-yUu"/>
+                            <constraint firstItem="hwp-ql-eVx" firstAttribute="trailing" secondItem="3xT-d6-Qgo" secondAttribute="trailing" constant="20" id="2gb-C9-wcv"/>
                             <constraint firstItem="9qE-ih-dMl" firstAttribute="leading" secondItem="hwp-ql-eVx" secondAttribute="leading" constant="20" id="3cu-vI-WsB"/>
+                            <constraint firstItem="dq8-mO-7p9" firstAttribute="height" secondItem="pEC-wI-zEg" secondAttribute="height" multiplier="0.339286" id="6wv-AO-t38"/>
+                            <constraint firstItem="eSK-jD-LBE" firstAttribute="leading" secondItem="hwp-ql-eVx" secondAttribute="leading" constant="20" id="BRD-7v-aqn"/>
+                            <constraint firstItem="3Nl-yO-Zgk" firstAttribute="leading" secondItem="hwp-ql-eVx" secondAttribute="leading" constant="20" id="GnE-SA-u3S"/>
                             <constraint firstItem="9qE-ih-dMl" firstAttribute="top" secondItem="hwp-ql-eVx" secondAttribute="top" constant="8" id="Iex-Ji-cIv"/>
+                            <constraint firstItem="hwp-ql-eVx" firstAttribute="trailing" secondItem="3Nl-yO-Zgk" secondAttribute="trailing" constant="20" id="MX2-rx-waE"/>
+                            <constraint firstItem="3Nl-yO-Zgk" firstAttribute="top" secondItem="nsX-2X-0y9" secondAttribute="bottom" constant="15" id="OGt-BL-5df"/>
+                            <constraint firstItem="nsX-2X-0y9" firstAttribute="leading" secondItem="hwp-ql-eVx" secondAttribute="leading" constant="20" id="Vt2-ee-qdn"/>
+                            <constraint firstItem="nsX-2X-0y9" firstAttribute="top" secondItem="3xT-d6-Qgo" secondAttribute="bottom" constant="15" id="W1C-qF-iJl"/>
+                            <constraint firstItem="6Gd-XJ-HjN" firstAttribute="leading" secondItem="hwp-ql-eVx" secondAttribute="leading" constant="20" id="Wlr-PO-osF"/>
+                            <constraint firstItem="dq8-mO-7p9" firstAttribute="leading" secondItem="hwp-ql-eVx" secondAttribute="leading" constant="20" id="ZRn-7j-0pc"/>
+                            <constraint firstItem="3xT-d6-Qgo" firstAttribute="top" secondItem="9qE-ih-dMl" secondAttribute="bottom" constant="20" id="axF-ge-ukE"/>
+                            <constraint firstItem="eSK-jD-LBE" firstAttribute="top" secondItem="6Gd-XJ-HjN" secondAttribute="bottom" constant="15" id="bmG-Qf-WvE"/>
                             <constraint firstItem="hwp-ql-eVx" firstAttribute="trailing" secondItem="9qE-ih-dMl" secondAttribute="trailing" constant="20" id="eqi-F3-BdJ"/>
+                            <constraint firstItem="dq8-mO-7p9" firstAttribute="top" secondItem="eSK-jD-LBE" secondAttribute="bottom" constant="8" id="f3v-3E-N6n"/>
+                            <constraint firstItem="hwp-ql-eVx" firstAttribute="trailing" secondItem="eSK-jD-LBE" secondAttribute="trailing" constant="20" id="fFE-cN-OWY"/>
+                            <constraint firstItem="3xT-d6-Qgo" firstAttribute="leading" secondItem="hwp-ql-eVx" secondAttribute="leading" constant="20" id="nsD-QB-bYp"/>
+                            <constraint firstItem="hwp-ql-eVx" firstAttribute="trailing" secondItem="dq8-mO-7p9" secondAttribute="trailing" constant="20" id="ros-rM-B1d"/>
+                            <constraint firstItem="hwp-ql-eVx" firstAttribute="trailing" secondItem="nsX-2X-0y9" secondAttribute="trailing" constant="20" id="ujh-Zo-8NP"/>
+                            <constraint firstItem="6Gd-XJ-HjN" firstAttribute="top" secondItem="3Nl-yO-Zgk" secondAttribute="bottom" constant="15" id="yLh-4B-hR0"/>
                             <constraint firstItem="9qE-ih-dMl" firstAttribute="height" secondItem="pEC-wI-zEg" secondAttribute="height" multiplier="0.35" id="zZl-Ij-ANw"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cHq-cw-cqw"/>
                     <connections>
                         <outlet property="lineGraph" destination="9qE-ih-dMl" id="VCu-dw-Vyu"/>
+                        <outlet property="mapView" destination="dq8-mO-7p9" id="iBM-fP-eCs"/>
+                        <outlet property="population" destination="3xT-d6-Qgo" id="xpQ-fy-M5H"/>
+                        <outlet property="todaysCase" destination="3Nl-yO-Zgk" id="Inh-ca-r5C"/>
+                        <outlet property="todaysDeath" destination="eSK-jD-LBE" id="HIS-Ae-tpG"/>
+                        <outlet property="totalCase" destination="nsX-2X-0y9" id="qP9-mS-2uR"/>
+                        <outlet property="totalDeath" destination="6Gd-XJ-HjN" id="dz9-CJ-QYX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i72-40-ChC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -118,6 +176,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="j06-Yf-Xlx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Qu7-Zr-vJv">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -149,7 +208,6 @@
         <!--World-->
         <scene sceneID="rkU-iZ-wy9">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Rbn-Se-q1Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="t9X-S0-416" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="World" image="globe" catalog="system" id="BSg-hF-JyU"/>
                     <toolbarItems/>
@@ -162,6 +220,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ZGe-Iy-x6a"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rbn-Se-q1Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1179.7101449275362" y="-179.46428571428569"/>
         </scene>
@@ -170,6 +229,9 @@
         <image name="globe" catalog="system" width="128" height="121"/>
         <image name="location.north.fill" catalog="system" width="108" height="128"/>
         <image name="scribble" catalog="system" width="128" height="118"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

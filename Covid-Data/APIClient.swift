@@ -51,45 +51,7 @@ class APIClient {
         dataTask.resume()
     }
     
-    public func getCaseData(country: String, completion: @escaping(Result<CasesData, ApiError>) -> ()) {
-        
-        let noSpaceCountry = country.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        let endpoint = "https://disease.sh/v3/covid-19/historical/\(noSpaceCountry)?lastdays=30"
-        
-        guard let url = URL(string: endpoint) else {
-            completion(.failure(.badURL(endpoint)))
-            return
-        }
-        
-        let request = URLRequest(url: url)
-        
-        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            if let error = error {
-                completion(.failure(.networkError(error)))
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                print("bad status code")
-                return
-            }
-            
-            if let data = data {
-                
-                do {
-                    let allData = try JSONDecoder().decode(CasesData.self, from: data)
-                    completion(.success(allData))
-                } catch {
-                    completion(.failure(.decodingError(error)))
-                }
-            }
-        }
-        dataTask.resume()
-    }
-    
-    public func newData(completion: @escaping(Result<[AllCountries],ApiError>) -> ()) {
+    public func dataForFlag(completion: @escaping(Result<[AllCountries],ApiError>) -> ()) {
         
         let endpoint = "https://corona.lmao.ninja/v2/countries?yesterday=true&sort="
         
@@ -162,4 +124,4 @@ class APIClient {
     }
 }
 
-// https://corona.lmao.ninja/v2/historical?lastdays=30
+//  https://disease.sh/v3/covid-19/countries/italy?strict=true
