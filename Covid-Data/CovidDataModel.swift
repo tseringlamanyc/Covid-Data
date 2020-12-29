@@ -52,5 +52,5 @@ struct CountryData: Decodable, Hashable {
 
 struct CountryInfo2: Decodable, Hashable {
     let lat: Double
-    let lon: Double
+    let long: Double
 }

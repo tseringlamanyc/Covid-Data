@@ -38,6 +38,7 @@ class CountryVC: UIViewController {
         view.backgroundColor = .systemBackground
         navigationController?.tabBarController?.hidesBottomBarWhenPushed = true 
         fetchAllCountryData(country: country)
+        getCountryInfo(country: country)
         configureGraph()
     }
     
@@ -105,6 +106,23 @@ class CountryVC: UIViewController {
                     let data = LineChartData(dataSet: set)
                     data.setDrawValues(false)
                     self?.lineGraph.data = data
+                }
+            }
+        }
+    }
+    
+    func getCountryInfo(country: String) {
+        apiClinet.getACountry(country: country) { [weak self] (result) in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let countryData):
+                DispatchQueue.main.async {
+                    self?.population.text = "Population: \(countryData.population)"
+                    self?.totalCase.text = "Total Cases: \(countryData.todayCases)"
+                    self?.todaysCase.text = "Today's Case: \(countryData.todayCases)"
+                    self?.totalDeath.text = "Total Death: \(countryData.deaths)"
+                    self?.todaysDeath.text = "Today's death: \(countryData.todayDeaths)"
                 }
             }
         }
