@@ -123,9 +123,25 @@ class CountryVC: UIViewController {
                     self?.todaysCase.text = "Today's Case: \(countryData.todayCases)"
                     self?.totalDeath.text = "Total Death: \(countryData.deaths)"
                     self?.todaysDeath.text = "Today's death: \(countryData.todayDeaths)"
+                    self?.loadMap(lat: countryData.countryInfo.lat, long: countryData.countryInfo.long, country: country)
                 }
             }
         }
+    }
+    
+    func loadMap(lat: Double, long: Double, country: String) {
+        let userLat = Double(lat)
+        let userLon = Double(long)
+
+        let userLocation = CLLocationCoordinate2D(latitude: userLat, longitude: userLon)
+        let span = MKCoordinateSpan(latitudeDelta: 40, longitudeDelta: 40)
+        let region = MKCoordinateRegion(center: userLocation, span: span)
+        mapView.setRegion(region, animated: true)
+        mapView.isZoomEnabled = false
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: userLat, longitude: userLon)
+        annotation.title = country
+        mapView.addAnnotation(annotation)
     }
 }
 
