@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class UsaViewController: UIViewController {
     
@@ -15,18 +16,39 @@ class UsaViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, String>
+    let apiClient = APIClient()
+    
+    typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, usaData>
     private var dataSource: DataSource!
+    
+    var allUsaState = [usaData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        getDataFromJson()
+        configureDataSource()
+        loadData(usaData: allUsaState)
     }
     
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
         collectionView.delegate = self
         collectionView.backgroundColor = .systemGray6
+    }
+    
+    private func getDataFromJson() {
+        allUsaState = usaData.getUSAData()
+    }
+    
+    private func loadData(usaData: [usaData]) {
+        var snapshot = dataSource.snapshot()
+        
+        snapshot.appendSections([.main])
+        
+        snapshot.appendItems(allUsaState, toSection: .main)
+        
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -53,7 +75,20 @@ class UsaViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        
+        dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, usaData) -> UICollectionViewCell? in
+            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stateCell", for: indexPath) as? stateCell else {
+                fatalError()
+            }
+            
+            let url = URL(string: usaData.skyline_background_url)
+            
+            cell.imageView.kf.setImage(with: url)
+            cell.stateName.text = usaData.state
+            cell.backgroundColor = .tertiarySystemBackground
+            
+            return cell
+        })
     }
     
 }
