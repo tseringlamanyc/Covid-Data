@@ -1,13 +1,3 @@
-//
-//  USA_json.swift
-//  Covid-Data
-//
-//  Created by Tsering Lama on 12/29/20.
-//
-
-import Foundation
-
-let usaJson = """
 [
   {
     "state": "Alabama",
@@ -1060,4 +1050,3 @@ let usaJson = """
     "facebook_url": null
   }
 ]
-""".data(using: .utf8)!

@@ -54,3 +54,31 @@ struct CountryInfo2: Decodable, Hashable {
     let lat: Double
     let long: Double
 }
+
+// MARK:- USA ONLY DATA
+struct usaData: Decodable, Hashable {
+    let state: String
+    let code: String
+    let skyline_background_url: String
+}
+
+extension usaData {
+    
+    static func getUSAData() -> [usaData] {
+        var arr = [usaData]()
+        
+        guard let fileURL = Bundle.main.url(forResource: "usa", withExtension: "json") else {
+            fatalError()
+        }
+        
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let allData = try JSONDecoder().decode([usaData].self, from: data)
+            arr = allData
+        } catch {
+            fatalError("\(error)")
+        }
+        return arr
+    }
+    
+}

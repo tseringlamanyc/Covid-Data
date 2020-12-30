@@ -119,7 +119,7 @@ class CountryVC: UIViewController {
             case .success(let countryData):
                 DispatchQueue.main.async {
                     self?.population.text = "Population: \(countryData.population)"
-                    self?.totalCase.text = "Total Cases: \(countryData.todayCases)"
+                    self?.totalCase.text = "Total Cases: \(countryData.cases)"
                     self?.todaysCase.text = "Today's Case: \(countryData.todayCases)"
                     self?.totalDeath.text = "Total Death: \(countryData.deaths)"
                     self?.todaysDeath.text = "Today's death: \(countryData.todayDeaths)"
