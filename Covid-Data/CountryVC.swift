@@ -39,6 +39,11 @@ class CountryVC: UIViewController {
         fetchAllCountryData(country: country)
         getCountryInfo(country: country)
         configureGraph()
+        population.layer.cornerRadius = 10
+        totalCase.layer.cornerRadius = 10
+        todaysCase.layer.cornerRadius = 10
+        totalDeath.layer.cornerRadius = 10
+        todaysDeath.layer.cornerRadius = 10
     }
     
     func configureGraph() {
