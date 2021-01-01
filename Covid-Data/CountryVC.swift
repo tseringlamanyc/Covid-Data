@@ -34,9 +34,8 @@ class CountryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = country.uppercased()
+        navigationItem.title = country
         view.backgroundColor = .systemBackground
-        navigationController?.tabBarController?.hidesBottomBarWhenPushed = true 
         fetchAllCountryData(country: country)
         getCountryInfo(country: country)
         configureGraph()
@@ -118,11 +117,11 @@ class CountryVC: UIViewController {
                 print(error)
             case .success(let countryData):
                 DispatchQueue.main.async {
-                    self?.population.text = "Population: \(countryData.population)"
-                    self?.totalCase.text = "Total Cases: \(countryData.cases)"
-                    self?.todaysCase.text = "Today's Case: \(countryData.todayCases)"
-                    self?.totalDeath.text = "Total Death: \(countryData.deaths)"
-                    self?.todaysDeath.text = "Today's death: \(countryData.todayDeaths)"
+                    self?.population.text = "Population - \(countryData.population.getComma())"
+                    self?.totalCase.text = "Total Cases - \(countryData.cases.getComma())"
+                    self?.todaysCase.text = "Today's Case - \(countryData.todayCases.getComma())"
+                    self?.totalDeath.text = "Total Death - \(countryData.deaths.getComma())"
+                    self?.todaysDeath.text = "Today's death - \(countryData.todayDeaths.getComma())"
                     self?.loadMap(lat: countryData.countryInfo.lat, long: countryData.countryInfo.long, country: country)
                 }
             }
@@ -132,7 +131,7 @@ class CountryVC: UIViewController {
     func loadMap(lat: Double, long: Double, country: String) {
         let userLat = Double(lat)
         let userLon = Double(long)
-
+        
         let userLocation = CLLocationCoordinate2D(latitude: userLat, longitude: userLon)
         let span = MKCoordinateSpan(latitudeDelta: 40, longitudeDelta: 40)
         let region = MKCoordinateRegion(center: userLocation, span: span)
@@ -152,5 +151,15 @@ extension String {
         dateFormatter.dateFormat = "MM/dd/yy"
         let date = dateFormatter.date(from: self)
         return date ?? Date()
+    }
+}
+
+extension Int {
+    
+    func getComma() -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let commaNum =  numberFormatter.string(from: NSNumber(value: self))
+        return commaNum ?? ""
     }
 }
