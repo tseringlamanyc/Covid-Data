@@ -15,6 +15,7 @@ class UsaViewController: UIViewController {
     }
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     let apiClient = APIClient()
     
@@ -29,6 +30,7 @@ class UsaViewController: UIViewController {
         getDataFromJson()
         configureDataSource()
         loadData(usaData: allUsaState)
+        searchBar.delegate = self
     }
     
     private func configureCollectionView() {
@@ -87,7 +89,7 @@ class UsaViewController: UIViewController {
             cell.stateName.text = usaData.state
             
             cell.backgroundColor = .tertiarySystemBackground
-           
+            
             return cell
         })
     }
@@ -96,5 +98,20 @@ class UsaViewController: UIViewController {
 
 
 extension UsaViewController: UICollectionViewDelegate {
+    
+}
+
+extension UsaViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            getDataFromJson()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        allUsaState = allUsaState.filter { $0.state.contains(searchBar.text!)}
+        searchBar.resignFirstResponder()
+    }
     
 }

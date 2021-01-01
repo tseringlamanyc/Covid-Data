@@ -199,7 +199,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6Dh-0T-qSJ">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BV2-0N-yxJ">
                                     <size key="itemSize" width="355" height="229"/>
@@ -244,19 +244,27 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <searchBar contentMode="redraw" placeholder="Search for a state (eg: &quot;New York&quot;)" translatesAutoresizingMaskIntoConstraints="NO" id="24n-N6-b4v">
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3b5-WF-7ko"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Dh-0T-qSJ" firstAttribute="leading" secondItem="3b5-WF-7ko" secondAttribute="leading" id="JOE-Xg-whf"/>
-                            <constraint firstItem="6Dh-0T-qSJ" firstAttribute="bottom" secondItem="3b5-WF-7ko" secondAttribute="bottom" id="gAa-D1-kXJ"/>
-                            <constraint firstItem="6Dh-0T-qSJ" firstAttribute="trailing" secondItem="3b5-WF-7ko" secondAttribute="trailing" id="hpW-2S-WTh"/>
-                            <constraint firstItem="6Dh-0T-qSJ" firstAttribute="top" secondItem="3b5-WF-7ko" secondAttribute="top" id="mFS-xK-kXc"/>
+                            <constraint firstItem="6Dh-0T-qSJ" firstAttribute="trailing" secondItem="3b5-WF-7ko" secondAttribute="trailing" id="MIj-EV-Dr8"/>
+                            <constraint firstItem="24n-N6-b4v" firstAttribute="trailing" secondItem="3b5-WF-7ko" secondAttribute="trailing" id="Qdx-Mz-gzG"/>
+                            <constraint firstItem="24n-N6-b4v" firstAttribute="top" secondItem="3b5-WF-7ko" secondAttribute="top" id="RLZ-6g-XwQ"/>
+                            <constraint firstItem="6Dh-0T-qSJ" firstAttribute="leading" secondItem="3b5-WF-7ko" secondAttribute="leading" id="VLa-Uc-khV"/>
+                            <constraint firstItem="6Dh-0T-qSJ" firstAttribute="top" secondItem="24n-N6-b4v" secondAttribute="bottom" id="Zra-4D-LBc"/>
+                            <constraint firstItem="6Dh-0T-qSJ" firstAttribute="bottom" secondItem="3b5-WF-7ko" secondAttribute="bottom" id="has-SA-d6v"/>
+                            <constraint firstItem="24n-N6-b4v" firstAttribute="leading" secondItem="3b5-WF-7ko" secondAttribute="leading" id="x5m-z3-tWo"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TE1-fQ-5Df"/>
                     <connections>
                         <outlet property="collectionView" destination="6Dh-0T-qSJ" id="BAI-id-Wef"/>
+                        <outlet property="searchBar" destination="24n-N6-b4v" id="E0f-mA-4Vi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KZd-a9-d2c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
