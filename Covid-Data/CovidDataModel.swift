@@ -62,6 +62,7 @@ struct usaData: Decodable, Hashable {
     let skyline_background_url: String
     let map_image_url: String
     let landscape_background_url: String
+    let state_seal_url: String
 }
 
 extension usaData {

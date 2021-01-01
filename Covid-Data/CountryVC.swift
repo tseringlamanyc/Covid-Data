@@ -90,13 +90,13 @@ class CountryVC: UIViewController {
                     set.drawCirclesEnabled = false
                     set.mode = .cubicBezier
                     
-                    set.lineWidth = 2.5
+                    set.lineWidth = 2.0
                     
                     set.mode = .cubicBezier
                     set.drawValuesEnabled = true
                     set.valueFont = .systemFont(ofSize: 10)
                     
-                    set.setColor(.systemYellow)
+                    set.setColor(.systemRed)
                     set.fill = Fill(color: .systemRed)
                     set.fillAlpha = 0.8
                     set.drawFilledEnabled = true

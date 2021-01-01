@@ -64,7 +64,7 @@ class UsaViewController: UIViewController {
             let leadingGroup = NSCollectionLayoutGroup.vertical(layoutSize: innerGroupSize, subitem: item, count: 2)
             let trailingGroup = NSCollectionLayoutGroup.vertical(layoutSize: innerGroupSize, subitem: item, count: 3)
             
-            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(1000))
+            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(600))
             let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [leadingGroup, trailingGroup])
             
             let section = NSCollectionLayoutSection(group: nestedGroup)
@@ -85,8 +85,9 @@ class UsaViewController: UIViewController {
             
             cell.imageView.kf.setImage(with: url)
             cell.stateName.text = usaData.state
-            cell.backgroundColor = .tertiarySystemBackground
             
+            cell.backgroundColor = .tertiarySystemBackground
+           
             return cell
         })
     }
