@@ -35,7 +35,7 @@ class CountryVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = country
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = #colorLiteral(red: 0.7361819148, green: 0.9366590381, blue: 0.9016157985, alpha: 1)
         fetchAllCountryData(country: country)
         getCountryInfo(country: country)
         configureGraph()
