@@ -51,4 +51,4 @@ let caseArray = allCases.sorted { $0.key.getDate() < $1.key.getDate() }
 Xcode 11, Swift 5, UIKit, Foundation, MapKit
 
 ## Cocoa Pods Used
-#### Charts - Shohei Yokoyama - https://github.com/danielgindi/Charts
+#### Charts - https://github.com/danielgindi/Charts
