@@ -10,7 +10,7 @@ This application has 2 tab bars (worlds category and USA category). The worlds t
 <img src="Assets/Continents.png" alt="JobHistory" width="305" height="700" /> <img src="Assets/Usa.png" alt="JobHistory" width="305" height="700" />
 
 ## Gif of grpah
-<img src="Assets/graph.png" alt="JobHistory" width="350" height="700" />
+<img src="Assets/graph.gif" alt="JobHistory" width="400" height="700" />
 
 ## Code Snippets
 
