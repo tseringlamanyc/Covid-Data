@@ -39,13 +39,10 @@ class UsaViewController: UIViewController {
         configureDataSource()
         loadData(usaData: allUsaState)
         searchBar.delegate = self
-        collectionView.delegate = self
-        
     }
     
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
-
     }
     
     private func getDataFromJson() {
@@ -115,11 +112,6 @@ class UsaViewController: UIViewController {
             return cell
         })
     }
-    
-}
-
-extension UsaViewController: UICollectionViewDelegate {
-    
 }
 
 extension UsaViewController: UISearchBarDelegate {
