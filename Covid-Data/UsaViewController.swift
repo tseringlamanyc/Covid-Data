@@ -79,7 +79,7 @@ class UsaViewController: UIViewController {
             let leadingGroup = NSCollectionLayoutGroup.vertical(layoutSize: innerGroupSize, subitem: item, count: 2)
             let trailingGroup = NSCollectionLayoutGroup.vertical(layoutSize: innerGroupSize, subitem: item, count: 3)
             
-            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(600))
+            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(layoutEnvironment.container.contentSize.height))
             let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [leadingGroup, trailingGroup])
             
             let section = NSCollectionLayoutSection(group: nestedGroup)
@@ -102,9 +102,9 @@ class UsaViewController: UIViewController {
             cell.stateName.text = usaData.state
 
             
-            cell.layer.shadowColor = UIColor.gray.cgColor
+            cell.layer.shadowColor = UIColor.black.cgColor
             cell.layer.shadowOffset = CGSize(width: 0, height: 1)
-            cell.layer.shadowRadius = 2.0
+            cell.layer.shadowRadius = 3.0
             cell.layer.shadowOpacity = 1.0
             cell.layer.masksToBounds = false
             cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath

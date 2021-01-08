@@ -166,9 +166,9 @@ class ContinentVC: UIViewController {
             cell.imageView.kf.setImage(with: url)
             cell.countryName.text = country
             
-            cell.layer.shadowColor = UIColor.gray.cgColor
+            cell.layer.shadowColor = UIColor.black.cgColor
             cell.layer.shadowOffset = CGSize(width: 0, height: 1)
-            cell.layer.shadowRadius = 2.0
+            cell.layer.shadowRadius = 5.0
             cell.layer.shadowOpacity = 1.0
             cell.layer.masksToBounds = false
             cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
