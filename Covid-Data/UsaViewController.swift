@@ -24,6 +24,14 @@ class UsaViewController: UIViewController {
     
     var allUsaState = [usaData]()
     
+    var filteredState = [usaData]() {
+        didSet {
+            loadData(usaData: filteredState)
+        }
+    }
+    
+    var searchQuery = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
@@ -31,12 +39,13 @@ class UsaViewController: UIViewController {
         configureDataSource()
         loadData(usaData: allUsaState)
         searchBar.delegate = self
+        collectionView.delegate = self
+        
     }
     
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
-        collectionView.delegate = self
-        collectionView.backgroundColor = .systemGray6
+
     }
     
     private func getDataFromJson() {
@@ -51,6 +60,13 @@ class UsaViewController: UIViewController {
         snapshot.appendItems(allUsaState, toSection: .main)
         
         dataSource.apply(snapshot, animatingDifferences: false)
+    }
+    
+    private func getDataFromSearch(query: String)  {
+        
+        filteredState = allUsaState.filter {$0.state.lowercased() == query.lowercased()}
+        
+        loadData(usaData: filteredState)
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -87,15 +103,20 @@ class UsaViewController: UIViewController {
             
             cell.imageView.kf.setImage(with: url)
             cell.stateName.text = usaData.state
+
             
-            cell.backgroundColor = .tertiarySystemBackground
+            cell.layer.shadowColor = UIColor.gray.cgColor
+            cell.layer.shadowOffset = CGSize(width: 0, height: 1)
+            cell.layer.shadowRadius = 2.0
+            cell.layer.shadowOpacity = 1.0
+            cell.layer.masksToBounds = false
+            cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
             
             return cell
         })
     }
     
 }
-
 
 extension UsaViewController: UICollectionViewDelegate {
     
@@ -110,7 +131,8 @@ extension UsaViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        allUsaState = allUsaState.filter { $0.state.contains(searchBar.text!)}
+        searchQuery = searchBar.text!
+        getDataFromSearch(query: searchQuery)
         searchBar.resignFirstResponder()
     }
     

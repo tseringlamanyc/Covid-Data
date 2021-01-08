@@ -45,12 +45,12 @@ class ContinentVC: UIViewController {
         }
         
         var innerGroupHeight: NSCollectionLayoutDimension {
-          switch self {
-          case .first:
-            return .fractionalWidth(1.0)
-          default:
-            return .fractionalWidth(0.45)
-          }
+            switch self {
+            case .first:
+                return .fractionalWidth(1.0)
+            default:
+                return .fractionalWidth(0.45)
+            }
         }
         
     }
@@ -75,7 +75,7 @@ class ContinentVC: UIViewController {
     private func configureCollectionView() {
         collectionView.collectionViewLayout = createLayout()
         collectionView.delegate = self
-        collectionView.backgroundColor = .systemGray6
+        collectionView.backgroundColor = .systemBackground
         collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.reuseIdentifier)
     }
     
@@ -118,31 +118,31 @@ class ContinentVC: UIViewController {
     }
     
     private func createLayout() -> UICollectionViewLayout {
-      let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-
-        guard let sectionKind = SectionKind(rawValue: sectionIndex) else { return nil }
-
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let itemSpacing: CGFloat = 10
-        item.contentInsets = NSDirectionalEdgeInsets(top: itemSpacing, leading: itemSpacing, bottom: itemSpacing, trailing: itemSpacing)
-
-        let innerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.50), heightDimension: .fractionalHeight(1.0))
-        let innerGroup = NSCollectionLayoutGroup.vertical(layoutSize: innerGroupSize, subitem: item, count: sectionKind.itemCount)
-
-        let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: sectionKind.innerGroupHeight)
-        let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innerGroup])
-
-        let section = NSCollectionLayoutSection(group: nestedGroup)
-        section.orthogonalScrollingBehavior = .continuous
-
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        section.boundarySupplementaryItems = [header]
-
-        return section
-      }
-      return layout
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            
+            guard let sectionKind = SectionKind(rawValue: sectionIndex) else { return nil }
+            
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            let itemSpacing: CGFloat = 10
+            item.contentInsets = NSDirectionalEdgeInsets(top: itemSpacing, leading: itemSpacing, bottom: itemSpacing, trailing: itemSpacing)
+            
+            let innerGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.50), heightDimension: .fractionalHeight(1.0))
+            let innerGroup = NSCollectionLayoutGroup.vertical(layoutSize: innerGroupSize, subitem: item, count: sectionKind.itemCount)
+            
+            let nestedGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: sectionKind.innerGroupHeight)
+            let nestedGroup = NSCollectionLayoutGroup.horizontal(layoutSize: nestedGroupSize, subitems: [innerGroup])
+            
+            let section = NSCollectionLayoutSection(group: nestedGroup)
+            section.orthogonalScrollingBehavior = .groupPaging
+            
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
+            let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+            section.boundarySupplementaryItems = [header]
+            
+            return section
+        }
+        return layout
     }
     
     
@@ -162,10 +162,17 @@ class ContinentVC: UIViewController {
             }
             
             let url = URL(string: countryURL)
-        
+            
             cell.imageView.kf.setImage(with: url)
             cell.countryName.text = country
-       
+            
+            cell.layer.shadowColor = UIColor.gray.cgColor
+            cell.layer.shadowOffset = CGSize(width: 0, height: 1)
+            cell.layer.shadowRadius = 2.0
+            cell.layer.shadowOpacity = 1.0
+            cell.layer.masksToBounds = false
+            cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
+            
             return cell
         })
         
@@ -181,7 +188,6 @@ class ContinentVC: UIViewController {
             return headerView
         }
     }
-    
 }
 
 extension ContinentVC: UICollectionViewDelegate {
@@ -201,8 +207,8 @@ extension ContinentVC: UICollectionViewDelegate {
             fatalError("couldnt segue to countryVC")
         }
         
-       navigationController?.pushViewController(countryVC, animated: true)
-       
+        navigationController?.pushViewController(countryVC, animated: true)
+        
     }
 }
 

@@ -32,6 +32,8 @@ class CountryVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    let cornerRadius: CGFloat = 10
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = country
@@ -39,11 +41,15 @@ class CountryVC: UIViewController {
         fetchAllCountryData(country: country)
         getCountryInfo(country: country)
         configureGraph()
-        population.layer.cornerRadius = 10
-        totalCase.layer.cornerRadius = 10
-        todaysCase.layer.cornerRadius = 10
-        totalDeath.layer.cornerRadius = 10
-        todaysDeath.layer.cornerRadius = 10
+        configureLabels()
+    }
+    
+    func configureLabels() {
+        population.layer.cornerRadius = cornerRadius
+        totalCase.layer.cornerRadius = cornerRadius
+        todaysCase.layer.cornerRadius = cornerRadius
+        totalDeath.layer.cornerRadius = cornerRadius
+        todaysDeath.layer.cornerRadius = cornerRadius
     }
     
     func configureGraph() {
