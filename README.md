@@ -47,6 +47,8 @@ let caseArray = allCases.sorted { $0.key.getDate() < $1.key.getDate() }
             cell.layer.masksToBounds = false
             cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
 ```
+### Tools & Frameworks used
+Xcode 11, Swift 5, UIKit, Foundation, MapKit
 
 ## Cocoa Pods Used
 #### Charts - Shohei Yokoyama - https://github.com/danielgindi/Charts
