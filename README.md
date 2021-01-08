@@ -1,5 +1,10 @@
 # Covid-Data
-This app displays covid data from all around the world
+
+## Description
+
+This application allows a user to look up covid data for countries all around the world. The user can also look up cases for specific states in the US. This app provides the case data for the past 30 days as a graph. 
+
+This application has 2 tab bars (worlds category and USA category). The worlds tab uses collection view layout and has section named after the continent. Each continent has their respective countries. The other tab shows all 50 states. 
 
 ## Code Snippets
 
