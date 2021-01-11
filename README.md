@@ -53,9 +53,15 @@ let caseArray = allCases.sorted { $0.key.getDate() < $1.key.getDate() }
             cell.layer.masksToBounds = false
             cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
 ```
+
+## Work in progress
+* Detailed view for states covid Data. 
+* Implementing search bar
+
 ## Tools & Frameworks used
 Xcode 12, Swift 5, UIKit, Foundation, MapKit
 
 ## Cocoa Pods & API Used
 #### Charts - https://github.com/danielgindi/Charts
 #### Disease.sh - https://github.com/disease-sh/api
+#### Kingfisher - https://github.com/onevcat/Kingfisher
