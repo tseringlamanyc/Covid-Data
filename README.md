@@ -55,8 +55,10 @@ let caseArray = allCases.sorted { $0.key.getDate() < $1.key.getDate() }
 ```
 
 ## Work in progress
-* Detailed view for states covid Data. 
-* Implementing search bar
+- [x] Add shadows to the cell
+- [ ] Implement a search feature 
+- [ ] Make a detailed case pages for the US States 
+- [ ] Make an app icon
 
 ## Tools & Frameworks used
 Xcode 12, Swift 5, UIKit, Foundation, MapKit
