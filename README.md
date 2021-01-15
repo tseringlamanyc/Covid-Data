@@ -7,7 +7,7 @@ This application allows a user to look up covid data for countries all around th
 This application has 2 tab bars (worlds category and USA category). The worlds tab uses collection view layout and has section named after the continent. Each continent has their respective countries. The other tab shows all 50 states. 
 
 ## Screenshots
-<img src="Assets/Continents.png" alt="JobHistory" width="305" height="700" /> <img src="Assets/Usa.png" alt="JobHistory" width="305" height="700" />
+<img src="Assets/Continents.png" width="305" height="700" /> <img src="Assets/Usa.png" width="305" height="700" />
 
 ## Gif of grpah
 <img src="Assets/graph.gif" alt="JobHistory" width="400" height="700" />
