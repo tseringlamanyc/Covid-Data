@@ -7,10 +7,10 @@ This application allows a user to look up covid data for countries all around th
 This application has 2 tab bars (worlds category and USA category). The worlds tab uses collection view layout and has section named after the continent. Each continent has their respective countries. The other tab shows all 50 states. 
 
 ## Screenshots
-<img src="Assets/Continents.png" alt="JobHistory" width="305" height="700" /> <img src="Assets/Usa.png" alt="JobHistory" width="305" height="700" />
+<img src="Assets/Continents.png" width="305" height="700" /> <img src="Assets/Usa.png" width="305" height="700" />
 
 ## Gif of grpah
-<img src="Assets/graph.png" alt="JobHistory" width="350" height="700" />
+<img src="Assets/graph.gif" alt="JobHistory" width="400" height="700" />
 
 ## Code Snippets
 
@@ -53,9 +53,17 @@ let caseArray = allCases.sorted { $0.key.getDate() < $1.key.getDate() }
             cell.layer.masksToBounds = false
             cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
 ```
+
+## Work in progress
+- [x] Add shadows to the cell
+- [ ] Implement a search feature 
+- [ ] Make a detailed case pages for the US States 
+- [ ] Make an app icon
+
 ## Tools & Frameworks used
 Xcode 12, Swift 5, UIKit, Foundation, MapKit
 
 ## Cocoa Pods & API Used
 #### Charts - https://github.com/danielgindi/Charts
 #### Disease.sh - https://github.com/disease-sh/api
+#### Kingfisher - https://github.com/onevcat/Kingfisher
