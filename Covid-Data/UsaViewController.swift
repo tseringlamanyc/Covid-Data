@@ -10,7 +10,7 @@ import Kingfisher
 
 class UsaViewController: UIViewController {
     
-    enum SectionKind: Int, CaseIterable {
+    enum SectionKind {
         case main
     }
     
@@ -20,6 +20,7 @@ class UsaViewController: UIViewController {
     let apiClient = APIClient()
     
     typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, usaData>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<SectionKind, usaData>
     private var dataSource: DataSource!
     
     var allUsaState = [usaData]()
@@ -50,20 +51,18 @@ class UsaViewController: UIViewController {
     }
     
     private func loadData(usaData: [usaData]) {
-        var snapshot = dataSource.snapshot()
+        var snapshot = Snapshot()
         
         snapshot.appendSections([.main])
         
-        snapshot.appendItems(allUsaState, toSection: .main)
+        snapshot.appendItems(usaData, toSection: .main)
         
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     private func getDataFromSearch(query: String)  {
         
-        filteredState = allUsaState.filter {$0.state.lowercased() == query.lowercased()}
-        
-        loadData(usaData: filteredState)
+        filteredState = allUsaState.filter {$0.state.lowercased().contains(query.lowercased())}
     }
     
     private func createLayout() -> UICollectionViewLayout {
@@ -118,7 +117,7 @@ extension UsaViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
-            getDataFromJson()
+            filteredState = usaData.getUSAData()
         }
     }
     
