@@ -56,7 +56,8 @@ let caseArray = allCases.sorted { $0.key.getDate() < $1.key.getDate() }
 
 ## Work in progress
 - [x] Add shadows to the cell
-- [ ] Implement a search feature 
+- [x] Implement a search feature for state view controller  
+- [ ] Implement a search feature for continent view controller 
 - [ ] Make a detailed case pages for the US States 
 - [ ] Make an app icon
 
