@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="j06-Yf-Xlx">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vlE-97-Bxz">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gbm-qq-S36">
                                     <size key="itemSize" width="349" height="256"/>
@@ -27,7 +28,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="covidCell" id="5hB-d4-OqV" customClass="countryCell" customModule="Covid_Data" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="covidCell" id="5hB-d4-OqV" customClass="CountryCell" customModule="Covid_Data" customModuleProvider="target">
                                         <rect key="frame" x="32.5" y="0.0" width="349" height="256"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gmo-9U-CIN">
@@ -63,19 +64,27 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="wQL-0p-8gg">
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="vlE-97-Bxz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="BIg-BJ-lU3"/>
-                            <constraint firstItem="vlE-97-Bxz" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Qn2-z9-ZuQ"/>
-                            <constraint firstItem="vlE-97-Bxz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="TaY-xA-Y6R"/>
-                            <constraint firstItem="vlE-97-Bxz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="spr-ps-mrW"/>
+                            <constraint firstItem="wQL-0p-8gg" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="1mr-2i-Cij"/>
+                            <constraint firstItem="vlE-97-Bxz" firstAttribute="top" secondItem="wQL-0p-8gg" secondAttribute="bottom" id="5rt-zx-Arp"/>
+                            <constraint firstItem="vlE-97-Bxz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="5y9-Se-IaD"/>
+                            <constraint firstItem="wQL-0p-8gg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="BsW-b2-yvf"/>
+                            <constraint firstItem="vlE-97-Bxz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="LVR-pw-MgY"/>
+                            <constraint firstItem="wQL-0p-8gg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="dM2-r8-t9b"/>
+                            <constraint firstItem="vlE-97-Bxz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jcG-RL-Bh5"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BJI-Tz-N0O"/>
                     <connections>
                         <outlet property="collectionView" destination="vlE-97-Bxz" id="LE3-d1-ns4"/>
+                        <outlet property="searchBar" destination="wQL-0p-8gg" id="FKJ-E5-paP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -230,7 +239,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="stateCell" id="MuG-8Y-5Jh" customClass="stateCell" customModule="Covid_Data" customModuleProvider="target">
+                                    <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="stateCell" id="MuG-8Y-5Jh" customClass="StateCell" customModule="Covid_Data" customModuleProvider="target">
                                         <rect key="frame" x="29.5" y="0.0" width="355" height="229"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="cTR-vO-cwM">

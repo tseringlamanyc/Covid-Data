@@ -56,20 +56,34 @@ class ContinentVC: UIViewController {
     }
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, String>
     private var dataSource: DataSource!
     
+    typealias Snapshot = NSDiffableDataSourceSnapshot<SectionKind, String>
+    
     let apiClinet = APIClient()
+    
+    var searchQuery = ""
     
     var newCountryData = [AllCountries]()
     
+    var filteredContinent = [AllContientData]() {
+        didSet {
+            updateSnapshot(continents: filteredContinent)
+        }
+    }
+    
+    var allContinent = [AllContientData]()
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
         configureDataSource()
         loadData()
         newData()
+        searchBar.delegate = self
     }
     
     private func configureCollectionView() {
@@ -86,7 +100,8 @@ class ContinentVC: UIViewController {
                 print(error)
             case .success(let allData):
                 DispatchQueue.main.async {
-                    self?.updateSnapshot(contients: allData)
+                    self?.updateSnapshot(continents: allData)
+                    self?.allContinent = allData
                 }
             }
         }
@@ -105,12 +120,16 @@ class ContinentVC: UIViewController {
         }
     }
     
-    private func updateSnapshot(contients: [AllContientData]) {
-        var snapshot = dataSource.snapshot()
+    private func getContinentFromSearch(query: String) {
+        filteredContinent = allContinent.filter {$0.continent.lowercased().contains(query.lowercased())}
+    }
+    
+    private func updateSnapshot(continents: [AllContientData]) {
+        var snapshot = Snapshot()
         
         snapshot.appendSections([.first, .second, .third, .fourth, .fifth, .sixth])
         
-        for (index, covidData) in contients.enumerated() {
+        for (index, covidData) in continents.enumerated() {
             snapshot.appendItems(covidData.countries, toSection: SectionKind.allCases[index])
         }
         
@@ -149,7 +168,7 @@ class ContinentVC: UIViewController {
     private func configureDataSource() {
         dataSource = DataSource(collectionView: collectionView, cellProvider: { [self] (collectionView, indexPath, country) -> UICollectionViewCell? in
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "covidCell", for: indexPath) as? countryCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "covidCell", for: indexPath) as? CountryCell else {
                 fatalError()
             }
             
@@ -212,3 +231,16 @@ extension ContinentVC: UICollectionViewDelegate {
     }
 }
 
+extension ContinentVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            filteredContinent = allContinent
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchQuery = searchBar.text!
+        getContinentFromSearch(query: searchQuery)
+        searchBar.resignFirstResponder()
+    }
+}

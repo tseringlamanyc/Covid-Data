@@ -19,13 +19,13 @@ class UsaViewController: UIViewController {
     
     let apiClient = APIClient()
     
-    typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, usaData>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<SectionKind, usaData>
+    typealias DataSource = UICollectionViewDiffableDataSource<SectionKind, USAData>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<SectionKind, USAData>
     private var dataSource: DataSource!
     
-    var allUsaState = [usaData]()
+    var allUsaState = [USAData]()
     
-    var filteredState = [usaData]() {
+    var filteredState = [USAData]() {
         didSet {
             loadData(usaData: filteredState)
         }
@@ -47,10 +47,10 @@ class UsaViewController: UIViewController {
     }
     
     private func getDataFromJson() {
-        allUsaState = usaData.getUSAData()
+        allUsaState = USAData.getUSAData()
     }
     
-    private func loadData(usaData: [usaData]) {
+    private func loadData(usaData: [USAData]) {
         var snapshot = Snapshot()
         
         snapshot.appendSections([.main])
@@ -91,7 +91,7 @@ class UsaViewController: UIViewController {
     private func configureDataSource() {
         dataSource = DataSource(collectionView: collectionView, cellProvider: { (collectionView, indexPath, usaData) -> UICollectionViewCell? in
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stateCell", for: indexPath) as? stateCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stateCell", for: indexPath) as? StateCell else {
                 fatalError()
             }
             
@@ -117,7 +117,7 @@ extension UsaViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
-            filteredState = usaData.getUSAData()
+            filteredState = USAData.getUSAData()
         }
     }
     

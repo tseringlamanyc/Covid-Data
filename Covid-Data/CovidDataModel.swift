@@ -56,7 +56,7 @@ struct CountryInfo2: Decodable, Hashable {
 }
 
 // MARK:- USA ONLY DATA
-struct usaData: Decodable, Hashable {
+struct USAData: Decodable, Hashable {
     let state: String
     let code: String
     let skyline_background_url: String
@@ -65,10 +65,10 @@ struct usaData: Decodable, Hashable {
     let state_seal_url: String
 }
 
-extension usaData {
+extension USAData {
     
-    static func getUSAData() -> [usaData] {
-        var arr = [usaData]()
+    static func getUSAData() -> [USAData] {
+        var arr = [USAData]()
         
         guard let fileURL = Bundle.main.url(forResource: "usa", withExtension: "json") else {
             fatalError()
@@ -76,7 +76,7 @@ extension usaData {
         
         do {
             let data = try Data(contentsOf: fileURL)
-            let allData = try JSONDecoder().decode([usaData].self, from: data)
+            let allData = try JSONDecoder().decode([USAData].self, from: data)
             arr = allData
         } catch {
             fatalError("\(error)")

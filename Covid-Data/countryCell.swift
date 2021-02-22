@@ -7,7 +7,7 @@
 
 import UIKit
 
-class countryCell: UICollectionViewCell {
+class CountryCell: UICollectionViewCell {
     
     
     @IBOutlet weak var imageView: UIImageView!
