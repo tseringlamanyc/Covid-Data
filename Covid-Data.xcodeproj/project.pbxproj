@@ -69,6 +69,50 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		8470B18D25E728FC001F720E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				84E038B42589489600BA3F4E /* CountryCell.swift */,
+				840F467F259D36590017BC70 /* StateCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		8470B18E25E7290A001F720E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				84F2D14225891D5000F0EAD3 /* APIClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		8470B18F25E7291B001F720E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				840F4674259D340E0017BC70 /* usa.json */,
+				84F2D14525891D5B00F0EAD3 /* CovidDataModel.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		8470B19025E72926001F720E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84E038B725894AB200BA3F4E /* HeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8470B19125E72930001F720E /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				84BD1076258C2A210094A86D /* CountryVC.swift */,
+				840F467C259D34990017BC70 /* UsaViewController.swift */,
+				84F2D13125891C9F00F0EAD3 /* ContinentVC.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		84F2D12125891C9E00F0EAD3 = {
 			isa = PBXGroup;
 			children = (
@@ -90,17 +134,13 @@
 		84F2D12C25891C9F00F0EAD3 /* Covid-Data */ = {
 			isa = PBXGroup;
 			children = (
+				8470B19125E72930001F720E /* View Controllers */,
+				8470B19025E72926001F720E /* Views */,
+				8470B18F25E7291B001F720E /* Models */,
+				8470B18E25E7290A001F720E /* Network */,
+				8470B18D25E728FC001F720E /* Cells */,
 				84F2D12D25891C9F00F0EAD3 /* AppDelegate.swift */,
 				84F2D12F25891C9F00F0EAD3 /* SceneDelegate.swift */,
-				84F2D13125891C9F00F0EAD3 /* ContinentVC.swift */,
-				84BD1076258C2A210094A86D /* CountryVC.swift */,
-				840F467C259D34990017BC70 /* UsaViewController.swift */,
-				84E038B725894AB200BA3F4E /* HeaderView.swift */,
-				84E038B42589489600BA3F4E /* CountryCell.swift */,
-				840F467F259D36590017BC70 /* StateCell.swift */,
-				84F2D14225891D5000F0EAD3 /* APIClient.swift */,
-				84F2D14525891D5B00F0EAD3 /* CovidDataModel.swift */,
-				840F4674259D340E0017BC70 /* usa.json */,
 				84F2D13325891C9F00F0EAD3 /* Main.storyboard */,
 				84F2D13625891CA000F0EAD3 /* Assets.xcassets */,
 				84F2D13825891CA000F0EAD3 /* LaunchScreen.storyboard */,
