@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import Charts
+import Combine
 
 class CountryVC: UIViewController {
     
@@ -33,6 +34,8 @@ class CountryVC: UIViewController {
     }
     
     let cornerRadius: CGFloat = 10
+    
+    private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,69 +77,62 @@ class CountryVC: UIViewController {
     }
     
     func fetchAllCountryData(country: String) {
-        apiClinet.getAllCaseData { [weak self] (result) in
-            switch result {
-            case .failure(let error):
-                print("this is the \(error)")
-            case .success(let data):
-                DispatchQueue.main.async { [weak self] in
-                    
-                    var allCases = [String: Int]()
-                    
-                    for (countries) in data {
-                        if country == countries.country || country.lowercased() == countries.province?.lowercased() {
-                            allCases = countries.timeline.cases
-                        }
+        apiClinet.getAllCaseData()
+            .sink { completion in
+                print(completion)
+            } receiveValue: { [weak self] data in
+                var allCases = [String: Int]()
+                
+                for (countries) in data {
+                    if country == countries.country || country.lowercased() == countries.province?.lowercased() {
+                        allCases = countries.timeline.cases
                     }
-                    
-                    
-                    let caseArray = allCases.sorted { $0.key.getDate() < $1.key.getDate() }
-                    
-                    let entries = (1...30).map { (x) -> ChartDataEntry in
-                        return ChartDataEntry(x: Double(x) , y: Double(caseArray[x - 1].value))
-                    }
-                    
-                    let set = LineChartDataSet(entries: entries, label: "Cases")
-                    set.drawCirclesEnabled = false
-                    set.mode = .cubicBezier
-                    
-                    set.lineWidth = 2.0
-                    
-                    set.mode = .cubicBezier
-                    set.drawValuesEnabled = true
-                    set.valueFont = .systemFont(ofSize: 10)
-                    
-                    set.setColor(.systemRed)
-                    set.fill = Fill(color: .systemRed)
-                    set.fillAlpha = 0.8
-                    set.drawFilledEnabled = true
-                    
-                    set.axisDependency = .left
-                    
-                    let data = LineChartData(dataSet: set)
-                    data.setDrawValues(false)
-                    self?.lineGraph.data = data
                 }
+                
+                
+                let caseArray = allCases.sorted { $0.key.getDate() < $1.key.getDate() }
+                
+                let entries = (1...30).map { (x) -> ChartDataEntry in
+                    return ChartDataEntry(x: Double(x) , y: Double(caseArray[x - 1].value))
+                }
+                
+                let set = LineChartDataSet(entries: entries, label: "Cases")
+                set.drawCirclesEnabled = false
+                set.mode = .cubicBezier
+                
+                set.lineWidth = 2.0
+                
+                set.mode = .cubicBezier
+                set.drawValuesEnabled = true
+                set.valueFont = .systemFont(ofSize: 10)
+                
+                set.setColor(.systemRed)
+                set.fill = Fill(color: .systemRed)
+                set.fillAlpha = 0.8
+                set.drawFilledEnabled = true
+                
+                set.axisDependency = .left
+                
+                let data = LineChartData(dataSet: set)
+                data.setDrawValues(false)
+                self?.lineGraph.data = data
             }
-        }
+            .store(in: &cancellables)
     }
     
     func getCountryInfo(country: String) {
-        apiClinet.getACountry(country: country) { [weak self] (result) in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let countryData):
-                DispatchQueue.main.async {
-                    self?.population.text = "Population - \(countryData.population.getComma())"
-                    self?.totalCase.text = "Total Cases - \(countryData.cases.getComma())"
-                    self?.todaysCase.text = "Today's Case - \(countryData.todayCases.getComma())"
-                    self?.totalDeath.text = "Total Death - \(countryData.deaths.getComma())"
-                    self?.todaysDeath.text = "Today's death - \(countryData.todayDeaths.getComma())"
-                    self?.loadMap(lat: countryData.countryInfo.lat, long: countryData.countryInfo.long, country: country)
-                }
+        apiClinet.getACountry(country: country)
+            .sink { completion in
+                print(completion)
+            } receiveValue: { [weak self] countryData in
+                self?.population.text = "Population - \(countryData.population.getComma())"
+                self?.totalCase.text = "Total Cases - \(countryData.cases.getComma())"
+                self?.todaysCase.text = "Today's Case - \(countryData.todayCases.getComma())"
+                self?.totalDeath.text = "Total Death - \(countryData.deaths.getComma())"
+                self?.todaysDeath.text = "Today's death - \(countryData.todayDeaths.getComma())"
+                self?.loadMap(lat: countryData.countryInfo.lat, long: countryData.countryInfo.long, country: country)
             }
-        }
+            .store(in: &cancellables)
     }
     
     func loadMap(lat: Double, long: Double, country: String) {

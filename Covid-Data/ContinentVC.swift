@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import Combine
 
 class ContinentVC: UIViewController {
     
@@ -69,6 +70,8 @@ class ContinentVC: UIViewController {
     
     var newCountryData = [AllCountries]()
     
+    private var cancellables = Set<AnyCancellable>()
+    
     var filteredContinent = [AllContientData]() {
         didSet {
             updateSnapshot(continents: filteredContinent)
@@ -76,7 +79,7 @@ class ContinentVC: UIViewController {
     }
     
     var allContinent = [AllContientData]()
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
@@ -94,30 +97,34 @@ class ContinentVC: UIViewController {
     }
     
     private func loadData() {
-        apiClinet.fetchAllContinents { [weak self] (result) in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let allData):
-                DispatchQueue.main.async {
-                    self?.updateSnapshot(continents: allData)
-                    self?.allContinent = allData
+        apiClinet.fetchAllContinents()
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error)
+                case .finished:
+                    print("Done")
                 }
+            } receiveValue: { [weak self] allData in
+                self?.updateSnapshot(continents: allData)
+                self?.allContinent = allData
             }
-        }
+            .store(in: &cancellables)
     }
     
     private func newData() {
-        apiClinet.dataForFlag { [weak self] (result) in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let allData):
-                DispatchQueue.main.async {
-                    self?.newCountryData = allData
+        apiClinet.dataForFlag()
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error.localizedDescription)
+                case .finished:
+                  print("Done")
                 }
+            } receiveValue: { [weak self] allData in
+                self?.newCountryData = allData
             }
-        }
+            .store(in: &cancellables)
     }
     
     private func getContinentFromSearch(query: String) {

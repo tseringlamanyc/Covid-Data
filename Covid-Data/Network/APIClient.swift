@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 enum ApiError: Error {
     case badURL(String)
@@ -14,153 +15,57 @@ enum ApiError: Error {
 }
 
 class APIClient {
-    
-    public func fetchAllContinents(completion: @escaping(Result<[AllContientData],ApiError>) -> ()) {
         
-        let endpoint = "https://corona.lmao.ninja/v2/continents?yesterday=true&sort="
+    public func fetchAllContinents() -> AnyPublisher<[AllContientData], Error> {
+       let endpoint = "https://corona.lmao.ninja/v2/continents?yesterday=true&sort="
         
-        guard let url = URL(string: endpoint) else {
-            completion(.failure(.badURL(endpoint)))
-            return
-        }
+       let url = URL(string: endpoint)!
         
-        let request = URLRequest(url: url)
-        
-        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            if let error = error {
-                completion(.failure(.networkError(error)))
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                print("bad status code")
-                return
-            }
-            
-            if let data = data {
-                
-                do {
-                    let allData = try JSONDecoder().decode([AllContientData].self, from: data)
-                    completion(.success(allData))
-                } catch {
-                    completion(.failure(.decodingError(error)))
-                }
-            }
-        }
-        dataTask.resume()
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .decode(type: [AllContientData].self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
     
-    public func dataForFlag(completion: @escaping(Result<[AllCountries],ApiError>) -> ()) {
+    public func dataForFlag() -> AnyPublisher<[AllCountries],Error> {
         
         let endpoint = "https://corona.lmao.ninja/v2/countries?yesterday=true&sort="
         
-        guard let url = URL(string: endpoint) else {
-            completion(.failure(.badURL(endpoint)))
-            return
-        }
+        let url = URL(string: endpoint)!
         
-        let request = URLRequest(url: url)
-        
-        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            if let error = error {
-                completion(.failure(.networkError(error)))
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                print("bad status code")
-                return
-            }
-            
-            if let data = data {
-                
-                do {
-                    let allData = try JSONDecoder().decode([AllCountries].self, from: data)
-                    completion(.success(allData))
-                } catch {
-                    completion(.failure(.decodingError(error)))
-                }
-            }
-        }
-        dataTask.resume()
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .decode(type: [AllCountries].self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
     
-    public func getAllCaseData(completion: @escaping(Result<[AllCaseData], ApiError>) -> ()) {
+    public func getAllCaseData() -> AnyPublisher<[AllCaseData], Error> {
         
         let endpoint = "https://corona.lmao.ninja/v2/historical?lastdays=30"
         
-        guard let url = URL(string: endpoint) else {
-            completion(.failure(.badURL(endpoint)))
-            return
-        }
+        let url = URL(string: endpoint)!
         
-        let request = URLRequest(url: url)
-        
-        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            if let error = error {
-                completion(.failure(.networkError(error)))
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                print("bad status code")
-                return
-            }
-            
-            if let data = data {
-                
-                do {
-                    let allData = try JSONDecoder().decode([AllCaseData].self, from: data)
-                    completion(.success(allData))
-                } catch {
-                    completion(.failure(.decodingError(error)))
-                }
-            }
-        }
-        dataTask.resume()
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .decode(type: [AllCaseData].self, decoder: JSONDecoder())
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
     
-    public func getACountry(country: String, completion: @escaping(Result<CountryData, ApiError>) -> ()) {
+    public func getACountry(country: String) -> AnyPublisher<CountryData, Error> {
         
         let noSpaceCountry = country.replacingOccurrences(of: " ", with: "%20")
         
         let endpoint = "https://disease.sh/v3/covid-19/countries/\(noSpaceCountry)?strict=true"
         
-        guard let url = URL(string: endpoint) else {
-            completion(.failure(.badURL(endpoint)))
-            return
-        }
+        let url = URL(string: endpoint)!
         
-        let request = URLRequest(url: url)
-        
-        let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-            if let error = error {
-                completion(.failure(.networkError(error)))
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                print("bad statuse code")
-                return
-            }
-            
-            if let data = data {
-                
-                do {
-                    let allData = try JSONDecoder().decode(CountryData.self, from: data)
-                    completion(.success(allData))
-                } catch {
-                    completion(.failure(.decodingError(error)))
-                }
-                
-            }
-        }
-        dataTask.resume()
+        return URLSession.shared.dataTaskPublisher(for: url)
+            .map(\.data)
+            .receive(on: DispatchQueue.main)
+            .decode(type: CountryData.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
     }
 }
-
-//  https://disease.sh/v3/covid-19/countries/italy?strict=true
